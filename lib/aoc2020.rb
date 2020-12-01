@@ -15,7 +15,8 @@ module AOC2020
   INPUT_DIR = ::File.expand_path('../etc', __dir__)
 
   DAY_MAP = [
-    nil # There is no day zero!
+    nil, # There is no day zero!
+    'report_repair'
   ].freeze
 
   def self.class_from_day(day)
