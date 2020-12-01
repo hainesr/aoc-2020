@@ -20,5 +20,19 @@ module AOC2020
 
       puts "Part 1: #{result}"
     end
+
+    def part2
+      result = sum3.reduce(1) { _1 * _2 }
+      puts "Part 2: #{result}"
+    end
+
+    def sum3
+      @input.each do |x|
+        sum = 2020 - x
+        (@input - [x]).each do |y|
+          return [x, y, (sum - y)] if @input.include?(sum - y)
+        end
+      end
+    end
   end
 end
