@@ -2,5 +2,10 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+# Allow compact child definitions in the tests for brevity.
+Style/ClassAndModuleChildren:
+  Exclude:
+    - test/**/*.rb
+
 Style/Documentation:
   Enabled: false
