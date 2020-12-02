@@ -30,10 +30,17 @@ class AOC2020::PasswordPhilosophyTest < MiniTest::Test
     assert_equal(PASSWORD_PARSED, @pp.parse(PASSWORD_LIST))
   end
 
-  def test_valid?
+  def test_valid1?
     list = @pp.parse(PASSWORD_LIST)
-    assert(@pp.valid?(list[0]))
-    refute(@pp.valid?(list[1]))
-    assert(@pp.valid?(list[2]))
+    assert(@pp.valid1?(list[0]))
+    refute(@pp.valid1?(list[1]))
+    assert(@pp.valid1?(list[2]))
+  end
+
+  def test_valid2?
+    list = @pp.parse(PASSWORD_LIST)
+    assert(@pp.valid2?(list[0]))
+    refute(@pp.valid2?(list[1]))
+    refute(@pp.valid2?(list[2]))
   end
 end
