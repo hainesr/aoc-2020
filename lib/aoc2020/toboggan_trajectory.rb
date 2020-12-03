@@ -18,6 +18,16 @@ module AOC2020
       puts "Part 1: #{count_trees_for_trajectory(@input, 3, 1)}"
     end
 
+    def part2
+      slopes = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]
+
+      trees = slopes.map do |right, down|
+        count_trees_for_trajectory(@input, right, down)
+      end
+
+      puts "Part 2: #{trees.reduce(1, &:*)}"
+    end
+
     def count_trees_for_trajectory(map, right, down)
       width = map[0].length
       height = map.length
