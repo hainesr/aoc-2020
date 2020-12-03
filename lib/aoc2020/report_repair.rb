@@ -13,24 +13,27 @@ module AOC2020
     end
 
     def part1
-      num = @input.each do |n|
-        break n if @input.include?(2020 - n)
-      end
-      result = num * (2020 - num)
-
-      puts "Part 1: #{result}"
+      puts "Part 1: #{sum2(@input)}"
     end
 
     def part2
-      result = sum3.reduce(1) { _1 * _2 }
+      result = sum3(@input).reduce(1, &:*)
       puts "Part 2: #{result}"
     end
 
-    def sum3
-      @input.each do |x|
+    def sum2(list)
+      num = list.each do |n|
+        break n if list.include?(2020 - n)
+      end
+
+      num * (2020 - num)
+    end
+
+    def sum3(list)
+      list.each do |x|
         sum = 2020 - x
-        (@input - [x]).each do |y|
-          return [x, y, (sum - y)] if @input.include?(sum - y)
+        (list - [x]).each do |y|
+          return [x, y, (sum - y)] if list.include?(sum - y)
         end
       end
     end
