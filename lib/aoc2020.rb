@@ -17,7 +17,8 @@ module AOC2020
   DAY_MAP = [
     nil, # There is no day zero!
     'report_repair',
-    'password_philosophy'
+    'password_philosophy',
+    'toboggan_trajectory'
   ].freeze
 
   def self.class_from_day(day)

@@ -2,6 +2,9 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+Metrics/MethodLength:
+  Max: 20
+
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
   Exclude:
