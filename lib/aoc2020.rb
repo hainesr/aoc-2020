@@ -18,7 +18,8 @@ module AOC2020
     nil, # There is no day zero!
     'report_repair',
     'password_philosophy',
-    'toboggan_trajectory'
+    'toboggan_trajectory',
+    'passport_processing'
   ].freeze
 
   def self.class_from_day(day)
