@@ -3,6 +3,8 @@
 
 My attempt at doing [Advent of Code 2020](http://adventofcode.com/2020) in Ruby, with tests and all the trimmings.
 
+![Tests](https://github.com/hainesr/aoc-2020/workflows/Tests/badge.svg)
+![Linter](https://github.com/hainesr/aoc-2020/workflows/Linter/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c5309e30ce5c9f6ed043/maintainability)](https://codeclimate.com/github/hainesr/aoc-2020/maintainability)
 
 ### Usage
