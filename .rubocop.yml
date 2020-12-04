@@ -2,8 +2,15 @@ AllCops:
   NewCops: enable
   SuggestExtensions: false
 
+Metrics/AbcSize:
+  Max: 25
+  Exclude:
+    - test/**/*.rb
+
 Metrics/MethodLength:
-  Max: 20
+  Max: 35
+  Exclude:
+    - test/**/*.rb
 
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
