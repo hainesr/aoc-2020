@@ -19,7 +19,8 @@ module AOC2020
     'report_repair',
     'password_philosophy',
     'toboggan_trajectory',
-    'passport_processing'
+    'passport_processing',
+    'binary_boarding'
   ].freeze
 
   def self.class_from_day(day)
