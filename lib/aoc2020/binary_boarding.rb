@@ -14,12 +14,22 @@ module AOC2020
     COLUMNS = 7
 
     def setup
-      @input = read_input_file.split
+      input = read_input_file.split
+      @all_ids = input.map { |code| seat_number(code)[2] }
     end
 
     def part1
-      max_id = @input.map { |code| seat_number(code)[2] }.max
+      max_id = @all_ids.max
+
       puts "Part 1: #{max_id}"
+    end
+
+    def part2
+      seat = @all_ids.each do |id|
+        break id + 1 if !@all_ids.include?(id + 1) && @all_ids.include?(id + 2)
+      end
+
+      puts "Part 2: #{seat}"
     end
 
     def seat_number(code)
