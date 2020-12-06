@@ -42,4 +42,8 @@ class AOC2020::CustomCustomsTest < MiniTest::Test
   def test_simple_counts
     assert_equal([3, 3, 3, 1, 1], @cc.simple_counts(@cc.parse(GROUPS)))
   end
+
+  def test_inclusive_counts
+    assert_equal([3, 0, 1, 1, 1], @cc.inclusive_counts(@cc.parse(GROUPS)))
+  end
 end
