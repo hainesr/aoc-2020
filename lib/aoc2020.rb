@@ -20,7 +20,8 @@ module AOC2020
     'password_philosophy',
     'toboggan_trajectory',
     'passport_processing',
-    'binary_boarding'
+    'binary_boarding',
+    'custom_customs'
   ].freeze
 
   def self.class_from_day(day)
