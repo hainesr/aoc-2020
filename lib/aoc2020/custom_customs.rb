@@ -15,15 +15,15 @@ module AOC2020
     end
 
     def part1
-      puts "Part 1: #{counts(@input).sum}"
+      puts "Part 1: #{simple_counts(@input).sum}"
     end
 
-    def counts(groups)
-      groups.map { |g| g.uniq.count }
+    def simple_counts(groups)
+      groups.map { |g| g.flatten.uniq.count }
     end
 
     def parse(input)
-      input.split("\n\n").map { |g| g.tr("\n", '').chars }
+      input.split("\n\n").map { |g| g.split.map(&:chars) }
     end
   end
 end

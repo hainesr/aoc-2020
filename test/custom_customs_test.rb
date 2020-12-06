@@ -34,12 +34,12 @@ class AOC2020::CustomCustomsTest < MiniTest::Test
 
   def test_parse
     groups = @cc.parse(GROUPS)
-    assert_equal(%w[a b c], groups[0])
-    assert_equal(%w[a b c], groups[1])
-    assert_equal(%w[a b a c], groups[2])
+    assert_equal([%w[a b c]], groups[0])
+    assert_equal([['a'], ['b'], ['c']], groups[1])
+    assert_equal([%w[a b], %w[a c]], groups[2])
   end
 
-  def test_counts
-    assert_equal([3, 3, 3, 1, 1], @cc.counts(@cc.parse(GROUPS)))
+  def test_simple_counts
+    assert_equal([3, 3, 3, 1, 1], @cc.simple_counts(@cc.parse(GROUPS)))
   end
 end
