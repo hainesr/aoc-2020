@@ -21,7 +21,8 @@ module AOC2020
     'toboggan_trajectory',
     'passport_processing',
     'binary_boarding',
-    'custom_customs'
+    'custom_customs',
+    'handy_haversacks'
   ].freeze
 
   def self.class_from_day(day)
