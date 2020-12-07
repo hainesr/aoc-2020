@@ -22,6 +22,16 @@ class AOC2020::HandyHaversacksTest < MiniTest::Test
     dotted black bags contain no other bags.
   EOBAGS
 
+  BAGS2 = <<~EOBAGS2
+    shiny gold bags contain 2 dark red bags.
+    dark red bags contain 2 dark orange bags.
+    dark orange bags contain 2 dark yellow bags.
+    dark yellow bags contain 2 dark green bags.
+    dark green bags contain 2 dark blue bags.
+    dark blue bags contain 2 dark violet bags.
+    dark violet bags contain no other bags.
+  EOBAGS2
+
   def setup
     @hh = AOC2020::HandyHaversacks.new
   end
@@ -51,5 +61,21 @@ class AOC2020::HandyHaversacksTest < MiniTest::Test
   def test_count_contains
     rules = @hh.parse(BAGS)
     assert_equal(4, @hh.count_contains(:shiny_gold, rules))
+  end
+
+  def test_count_all
+    rules = @hh.parse(BAGS)
+    assert_equal(33, @hh.count_all(:shiny_gold, rules))
+
+    rules = @hh.parse(BAGS2)
+    assert_equal(127, @hh.count_all(:shiny_gold, rules))
+  end
+
+  def test_count_in
+    rules = @hh.parse(BAGS)
+    assert_equal(32, @hh.count_in(:shiny_gold, rules))
+
+    rules = @hh.parse(BAGS2)
+    assert_equal(126, @hh.count_in(:shiny_gold, rules))
   end
 end

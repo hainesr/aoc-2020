@@ -18,8 +18,29 @@ module AOC2020
       puts "Part 1: #{count_contains(:shiny_gold)}"
     end
 
+    def part2
+      puts "Part 2: #{count_in(:shiny_gold)}"
+    end
+
     def count_contains(bag, rules = @input)
       rules.keys.map { |rule| contains?(rule, bag, rules) }.count { _1 }
+    end
+
+    def count_in(bag, rules = @input)
+      count_all(bag, rules) - 1
+    end
+
+    def count_all(bag, rules = @input)
+      return 1 if rules[bag].empty?
+
+      children = 0
+      rules[bag].each do |k, v|
+        v.times do
+          children += count_all(k, rules)
+        end
+      end
+
+      1 + children
     end
 
     def contains?(outer, inner, rules = @input)
