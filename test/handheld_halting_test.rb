@@ -45,6 +45,17 @@ class AOC2020::HandheldHaltingTest < MiniTest::Test
 
   def test_execute
     program = @hh.load(PROGRAM)
-    assert_equal(5, @hh.execute(program))
+    assert_equal(5, @hh.execute(program)[1])
+  end
+
+  def test_execute_new_program
+    program = @hh.load(PROGRAM)
+    program[7][0] = :nop
+    assert_equal(8, @hh.execute(program)[1])
+  end
+
+  def test_fix
+    program = @hh.load(PROGRAM)
+    assert_equal(8, @hh.fix(program))
   end
 end

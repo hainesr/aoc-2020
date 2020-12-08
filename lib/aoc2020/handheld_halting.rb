@@ -15,13 +15,17 @@ module AOC2020
     end
 
     def part1
-      puts "Part 1: #{execute(@input)}"
+      puts "Part 1: #{execute(@input)[1]}"
+    end
+
+    def part2
+      puts "Part 2: #{fix(@input)}"
     end
 
     def execute(program)
       pc = 0
       acc = 0
-      seen = []
+      seen = [program.length] # Normal termination at the end of the program.
 
       loop do
         break if seen.include?(pc)
@@ -40,7 +44,24 @@ module AOC2020
         end
       end
 
-      acc
+      [pc, acc]
+    end
+
+    def fix(program)
+      (0...program.length).each do |i|
+        case program[i][0]
+        when :nop
+          program[i][0] = :jmp
+          pc, acc = execute(program)
+          program[i][0] = :nop
+        when :jmp
+          program[i][0] = :nop
+          pc, acc = execute(program)
+          program[i][0] = :jmp
+        end
+
+        return acc if pc == program.length
+      end
     end
 
     def load(program)
