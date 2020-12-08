@@ -22,7 +22,8 @@ module AOC2020
     'passport_processing',
     'binary_boarding',
     'custom_customs',
-    'handy_haversacks'
+    'handy_haversacks',
+    'handheld_halting'
   ].freeze
 
   def self.class_from_day(day)
