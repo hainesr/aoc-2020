@@ -23,7 +23,8 @@ module AOC2020
     'binary_boarding',
     'custom_customs',
     'handy_haversacks',
-    'handheld_halting'
+    'handheld_halting',
+    'encoding_error'
   ].freeze
 
   def self.class_from_day(day)
