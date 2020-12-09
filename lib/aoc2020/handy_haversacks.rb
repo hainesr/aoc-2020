@@ -23,7 +23,7 @@ module AOC2020
     end
 
     def count_contains(bag, rules = @input)
-      rules.keys.map { |rule| contains?(rule, bag, rules) }.count { _1 }
+      rules.keys.map { |rule| contains?(rule, bag, rules) }.count { |x| x }
     end
 
     def count_in(bag, rules = @input)
