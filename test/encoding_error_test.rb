@@ -22,4 +22,8 @@ class AOC2020::EncodingErrorTest < MiniTest::Test
   def test_find_error
     assert_equal(127, @ee.find_error(INPUT, 5))
   end
+
+  def test_find_run
+    assert_equal([15, 25, 40, 47], @ee.find_run(INPUT, 127))
+  end
 end
