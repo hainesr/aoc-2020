@@ -49,6 +49,34 @@ class AOC2020::SeatingSystemTest < MiniTest::Test
     #.#LLLL.##
   EOST2
 
+  EIGHT = <<~EOEIGHT
+    .......#.
+    ...#.....
+    .#.......
+    .........
+    ..#L....#
+    ....#....
+    .........
+    #........
+    ...#.....
+  EOEIGHT
+
+  EMPTY = <<~EOEMPTY
+    .............
+    .L.L.#.#.#.#.
+    .............
+  EOEMPTY
+
+  NONE = <<~EONONE
+    .##.##.
+    #.#.#.#
+    ##...##
+    ...L...
+    ##...##
+    #.#.#.#
+    .##.##.
+  EONONE
+
   def setup
     @ss = AOC2020::SeatingSystem.new
   end
@@ -71,6 +99,21 @@ class AOC2020::SeatingSystemTest < MiniTest::Test
     assert_equal(@ss.parse_map(STEP1), new_map)
     assert_equal(@ss.parse_map(STEP2), map)
     assert(changed)
+  end
+
+  def test_get_neighbours
+    map = @ss.parse_map(EIGHT)
+    assert_equal(%w[# #], @ss.get_neighbours(map, 3, 4, false))
+    assert_equal(['#'] * 8, @ss.get_neighbours(map, 3, 4, true))
+
+    map = @ss.parse_map(EMPTY)
+    assert_equal([], @ss.get_neighbours(map, 1, 1, false))
+    assert_equal(['L'], @ss.get_neighbours(map, 1, 1, true))
+    assert_equal(%w[# L], @ss.get_neighbours(map, 3, 1, true))
+
+    map = @ss.parse_map(NONE)
+    assert_equal([], @ss.get_neighbours(map, 3, 3, false))
+    assert_equal([], @ss.get_neighbours(map, 3, 3, true))
   end
 
   def test_count_seats

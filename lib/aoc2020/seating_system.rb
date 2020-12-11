@@ -25,16 +25,25 @@ module AOC2020
       puts "Part 1: #{count_seats(done)}"
     end
 
-    def step(map)
+    def part2
+      map = @input
+
+      done = loop do
+        map, changed = step(map, long: true)
+        break map unless changed
+      end
+
+      puts "Part 2: #{count_seats(done)}"
+    end
+
+    def step(map, long: false)
       new_map = map.map(&:dup)
+      threshold = long ? 5 : 4
       changed = false
 
-      height = map.length
-      width = map[0].length
-
-      height.times do |y|
-        width.times do |x|
-          neighbours = get_neighbours(map, x, y)
+      map.length.times do |y|
+        map[0].length.times do |x|
+          neighbours = get_neighbours(map, x, y, long)
           case map[y][x]
           when 'L'
             unless neighbours.include?('#')
@@ -42,7 +51,7 @@ module AOC2020
               changed = true
             end
           when '#'
-            if neighbours.count { |n| n == '#' } >= 4
+            if neighbours.count { |n| n == '#' } >= threshold
               new_map[y][x] = 'L'
               changed = true
             end
@@ -57,18 +66,29 @@ module AOC2020
       map.join.count('#')
     end
 
-    def get_neighbours(map, x, y)
+    def get_neighbours(map, x, y, long)
       neighbours = []
       [
         [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]
       ].each do |direction|
-        nx = x + direction[0]
-        ny = y + direction[1]
+        i = 1
+        loop do
+          nx = x + (direction[0] * i)
+          ny = y + (direction[1] * i)
 
-        next if !(0...map.length).cover?(ny) || !(0...map[0].length).cover?(nx)
+          break if !(0...map.length).cover?(ny) ||
+                   !(0...map[0].length).cover?(nx)
 
-        n = map[ny][nx]
-        neighbours << n if %w[L #].include?(n)
+          n = map[ny][nx]
+          if %w[L #].include?(n)
+            neighbours << n
+            break
+          end
+
+          break unless long
+
+          i += 1
+        end
       end
 
       neighbours
