@@ -13,6 +13,9 @@ Metrics/MethodLength:
   Exclude:
     - test/**/*.rb
 
+Naming/MethodParameterName:
+  AllowedNames: x, y
+
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
   Exclude:
