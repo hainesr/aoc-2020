@@ -24,7 +24,8 @@ module AOC2020
     'custom_customs',
     'handy_haversacks',
     'handheld_halting',
-    'encoding_error'
+    'encoding_error',
+    'adapter_array'
   ].freeze
 
   def self.class_from_day(day)
