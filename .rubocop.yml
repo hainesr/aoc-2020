@@ -4,7 +4,7 @@ AllCops:
   TargetRubyVersion: 2.6
 
 Metrics/AbcSize:
-  Max: 25
+  Max: 32
   Exclude:
     - test/**/*.rb
 

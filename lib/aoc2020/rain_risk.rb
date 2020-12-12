@@ -30,6 +30,11 @@ module AOC2020
       puts "Part 1: #{manhattan(location)}"
     end
 
+    def part2
+      location = move_waypoint(@input)
+      puts "Part 2: #{manhattan(location)}"
+    end
+
     def manhattan(location)
       location.map(&:abs).sum
     end
@@ -57,6 +62,37 @@ module AOC2020
 
         [0, 1].each do |i|
           location[i] += (move[i] * magnitude)
+        end
+      end
+
+      location
+    end
+
+    def move_waypoint(directions)
+      location = [0, 0] # Start at origin.
+      waypoint = [10, 1]
+
+      directions.each do |direction|
+        dir = direction[0]
+        magnitude = direction.slice(1, 3).to_i
+
+        case dir
+        when 'F'
+          [0, 1].each do |i|
+            location[i] += (waypoint[i] * magnitude)
+          end
+        when /[NESW]/
+          [0, 1].each do |i|
+            waypoint[i] += (LOOKUP[dir][i] * magnitude)
+          end
+        when 'R'
+          (magnitude / 90).times do
+            waypoint[0], waypoint[1] = [waypoint[1], -waypoint[0]]
+          end
+        when 'L'
+          (magnitude / 90).times do
+            waypoint[0], waypoint[1] = [-waypoint[1], waypoint[0]]
+          end
         end
       end
 
