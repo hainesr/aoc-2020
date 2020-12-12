@@ -26,7 +26,8 @@ module AOC2020
     'handheld_halting',
     'encoding_error',
     'adapter_array',
-    'seating_system'
+    'seating_system',
+    'rain_risk'
   ].freeze
 
   def self.class_from_day(day)
