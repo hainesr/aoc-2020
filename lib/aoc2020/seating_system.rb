@@ -10,6 +10,8 @@ require 'aoc2020'
 
 module AOC2020
   class SeatingSystem < Day
+    ADJ8 = [-1, 0, 1].product([-1, 0, 1]) - [[0, 0]]
+
     def setup
       @input = parse_map(read_input_file)
     end
@@ -27,75 +29,68 @@ module AOC2020
 
     def part2
       map = @input
+      sight = sightlines(@input)
 
       done = loop do
-        map, changed = step(map, long: true)
+        map, changed = step(map, sight)
         break map unless changed
       end
 
       puts "Part 2: #{count_seats(done)}"
     end
 
-    def step(map, long: false)
-      new_map = map.map(&:dup)
-      threshold = long ? 5 : 4
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def step(map, sight = nil)
+      threshold = sight.nil? ? 4 : 5
       changed = false
 
-      map.length.times do |y|
-        map[0].length.times do |x|
-          neighbours = get_neighbours(map, x, y, long)
-          case map[y][x]
-          when 'L'
-            unless neighbours.include?('#')
-              new_map[y][x] = '#'
-              changed = true
-            end
-          when '#'
-            if neighbours.count { |n| n == '#' } >= threshold
-              new_map[y][x] = 'L'
-              changed = true
-            end
+      new_map = map.map.with_index do |row, y|
+        row.map.with_index do |seat, x|
+          next seat unless %w[L #].include?(seat)
+
+          neighbours = (sight.nil? ? ADJ8 : sight[y][x]).count do |dy, dx|
+            map[y + dy][x + dx] == '#'
+          end
+
+          if seat == 'L' && neighbours.zero?
+            changed = true
+            '#'
+          elsif seat == '#' && neighbours >= threshold
+            changed = true
+            'L'
+          else
+            seat
           end
         end
       end
 
       [new_map, changed]
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     def count_seats(map)
       map.join.count('#')
     end
 
-    def get_neighbours(map, x, y, long)
-      neighbours = []
-      [
-        [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1], [-1, 0], [-1, 1]
-      ].each do |direction|
-        i = 1
-        loop do
-          nx = x + (direction[0] * i)
-          ny = y + (direction[1] * i)
+    def sightlines(map)
+      map.map.with_index do |row, j|
+        row.map.with_index do |seat, i|
+          seat != '!' && ADJ8.map do |dx, dy|
+            x = dx + i
+            y = dy + j
+            (x += dx) && (y += dy) while map[y][x] == '.'
 
-          break if !(0...map.length).cover?(ny) ||
-                   !(0...map[0].length).cover?(nx)
-
-          n = map[ny][nx]
-          if %w[L #].include?(n)
-            neighbours << n
-            break
+            [y - j, x - i]
           end
-
-          break unless long
-
-          i += 1
         end
       end
-
-      neighbours
     end
 
     def parse_map(input)
-      input.split
+      map = input.split.map { |x| "!#{x}!" }
+      map.unshift('!' * map[0].length)
+      map << '!' * map[0].length
+      map.map(&:chars)
     end
   end
 end
