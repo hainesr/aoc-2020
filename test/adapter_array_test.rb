@@ -28,4 +28,9 @@ class AOC2020::AdapterArrayTest < MiniTest::Test
       { 1 => 22, 3 => 10 }, @aa.jolt_steps(@aa.read_adapters(INPUT2))
     )
   end
+
+  def test_count_all_chains
+    assert_equal(8, @aa.count_all_chains(@aa.read_adapters(INPUT1)))
+    assert_equal(19_208, @aa.count_all_chains(@aa.read_adapters(INPUT2)))
+  end
 end
