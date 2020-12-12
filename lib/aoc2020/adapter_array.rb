@@ -11,26 +11,23 @@ require 'aoc2020'
 module AOC2020
   class AdapterArray < Day
     def setup
-      @input = read_input_file.split.map(&:to_i)
+      @input = read_adapters(read_input_file)
     end
 
     def part1
       diffs = jolt_steps
-      puts "Part 1: #{diffs[0] * diffs[1]}"
+      puts "Part 1: #{diffs[1] * diffs[3]}"
     end
 
     def jolt_steps(adapters = @input)
-      adapters = adapters.dup.sort
+      adapters.each_cons(2).map { |i, j| j - i }.tally
+    end
+
+    def read_adapters(list)
+      adapters = list.split.map(&:to_i).sort
+      adapters.unshift(0)
       adapters << adapters.last + 3
-      diffs = []
-
-      prev = 0
-      adapters.each do |adapter|
-        diffs << adapter - prev
-        prev = adapter
-      end
-
-      diffs.group_by { |x| x }.values.map(&:length)
+      adapters
     end
   end
 end
