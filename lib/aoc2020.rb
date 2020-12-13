@@ -27,7 +27,8 @@ module AOC2020
     'encoding_error',
     'adapter_array',
     'seating_system',
-    'rain_risk'
+    'rain_risk',
+    'shuttle_search'
   ].freeze
 
   def self.class_from_day(day)
