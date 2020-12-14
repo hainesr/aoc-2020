@@ -28,7 +28,8 @@ module AOC2020
     'adapter_array',
     'seating_system',
     'rain_risk',
-    'shuttle_search'
+    'shuttle_search',
+    'docking_data'
   ].freeze
 
   def self.class_from_day(day)
