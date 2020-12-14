@@ -15,10 +15,14 @@ module AOC2020
     end
 
     def part1
-      puts "Part 1: #{compute}"
+      puts "Part 1: #{compute1}"
     end
 
-    def compute(program = @input)
+    def part2
+      puts "Part 2: #{compute2}"
+    end
+
+    def compute1(program = @input)
       mem = {}
       and_mask = 0
       or_mask = 0
@@ -33,6 +37,48 @@ module AOC2020
       end
 
       mem.values.sum
+    end
+
+    def compute2(program = @input)
+      mem = {}
+      mask = ''
+
+      program.each do |line|
+        if line[0] == :mask
+          mask = line[1]
+          next
+        end
+
+        mask_address(mask, line[1]).each do |address|
+          mem[address] = line[2]
+        end
+      end
+
+      mem.values.sum
+    end
+
+    def mask_address(mask, address)
+      masked = format('%036b', address).chars.map.with_index do |c, i|
+        case mask[i]
+        when '1'
+          '1'
+        when 'X'
+          'X'
+        else
+          c
+        end
+      end.join
+
+      expand_mask(masked).map { |x| x.to_i(2) }
+    end
+
+    def expand_mask(masked)
+      return [masked] unless masked.include?('X')
+
+      zero = masked.sub('X', '0')
+      one = masked.sub('X', '1')
+
+      expand_mask(zero) + expand_mask(one)
     end
 
     def load(input)
