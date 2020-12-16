@@ -29,7 +29,9 @@ module AOC2020
     'seating_system',
     'rain_risk',
     'shuttle_search',
-    'docking_data'
+    'docking_data',
+    nil,
+    'ticket_translation'
   ].freeze
 
   def self.class_from_day(day)
