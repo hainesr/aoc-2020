@@ -31,7 +31,9 @@ module AOC2020
     'shuttle_search',
     'docking_data',
     nil,
-    'ticket_translation'
+    'ticket_translation',
+    nil,
+    'operation_order'
   ].freeze
 
   def self.class_from_day(day)
