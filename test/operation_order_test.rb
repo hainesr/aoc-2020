@@ -49,4 +49,30 @@ class AOC2020::OperationOrderTest < MiniTest::Test
       13_632, @oo.eval_line('((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2')
     )
   end
+
+  def test_eval_line_part2
+    assert_equal(1, @oo.eval_line('1', true))
+    assert_equal(11, @oo.eval_line('11', true))
+    assert_equal(11, @oo.eval_line('5 + 6', true))
+    assert_equal(20, @oo.eval_line('5 + 6 + 9', true))
+    assert_equal(21, @oo.eval_line('1 + 5 + 6 + 9', true))
+    assert_equal(30, @oo.eval_line('5 * 6', true))
+    assert_equal(30, @oo.eval_line('5 * 1 * 6', true))
+    assert_equal(231, @oo.eval_line('1 + 2 * 3 + 4 * 5 + 6', true))
+    assert_equal(11, @oo.eval_line('(5 + 6)', true))
+    assert_equal(20, @oo.eval_line('(5 + 6 + 9)', true))
+    assert_equal(20, @oo.eval_line('5 + (6 + 9)', true))
+    assert_equal(20, @oo.eval_line('(5 + 6) + 9', true))
+    assert_equal(30, @oo.eval_line('(5 * 6)', true))
+    assert_equal(51, @oo.eval_line('1 + (2 * 3) + (4 * (5 + 6))', true))
+    assert_equal(46, @oo.eval_line('2 * 3 + (4 * 5)', true))
+    assert_equal(1_445, @oo.eval_line('5 + (8 * 3 + 9 + 3 * 4 * 3)', true))
+    assert_equal(
+      669_060, @oo.eval_line('5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))', true)
+    )
+    assert_equal(
+      23_340,
+      @oo.eval_line('((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2', true)
+    )
+  end
 end
