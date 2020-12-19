@@ -33,7 +33,8 @@ module AOC2020
     nil,
     'ticket_translation',
     nil,
-    'operation_order'
+    'operation_order',
+    'monster_messages'
   ].freeze
 
   def self.class_from_day(day)
