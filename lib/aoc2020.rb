@@ -32,7 +32,7 @@ module AOC2020
     'docking_data',
     nil,
     'ticket_translation',
-    nil,
+    'conway_cubes',
     'operation_order',
     'monster_messages'
   ].freeze
