@@ -30,7 +30,7 @@ module AOC2020
     'rain_risk',
     'shuttle_search',
     'docking_data',
-    nil,
+    'rambunctious_recitation',
     'ticket_translation',
     'conway_cubes',
     'operation_order',
