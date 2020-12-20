@@ -12,9 +12,16 @@ module AOC2020
   class RambunctiousRecitation < Day
     INPUT = [5, 1, 9, 18, 13, 8, 0].freeze
 
+    def setup
+      @game = Game.new(INPUT)
+    end
+
     def part1
-      game = Game.new(INPUT)
-      puts "Part 1: #{game.play_to(2020)}"
+      puts "Part 1: #{@game.play_to(2020)}"
+    end
+
+    def part2
+      puts "Part 2: #{@game.play_to(30_000_000)}"
     end
 
     class Game
