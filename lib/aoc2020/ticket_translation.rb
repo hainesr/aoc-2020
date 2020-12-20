@@ -19,10 +19,65 @@ module AOC2020
       puts "Part 1: #{error_rate}"
     end
 
+    def part2
+      tickets = valid_tickets
+      id_map = id_fields(tickets, @fields)
+
+      total = id_map.keys.reduce(1) do |acc, k|
+        next acc unless k.start_with?('departure')
+
+        acc * @my_ticket[id_map[k]]
+      end
+
+      puts "Part 2: #{total}"
+    end
+
     def error_rate(tickets = @tickets, fields = @field_values)
       tickets.map do |ticket|
         ticket.difference(fields).sum
       end.sum
+    end
+
+    def valid_tickets(tickets = @tickets, fields = @field_values)
+      tickets.select do |ticket|
+        ticket.difference(fields).empty?
+      end
+    end
+
+    def id_fields(tickets, fields)
+      fields = fields.dup
+      ticket_values = tickets.transpose
+      id_lookup = {}
+
+      fields.length.times do
+        ticket_values.each_with_index do |values, i|
+          next if id_lookup.values.include?(i)
+
+          match = matching_fields_for_values(values, fields)
+          if match.length == 1
+            fields.delete(match[0])
+            id_lookup[match[0]] = i
+          end
+        end
+
+        break if fields.empty?
+      end
+
+      id_lookup
+    end
+
+    def matching_fields_for_values(values, fields)
+      matches = []
+
+      fields.each do |k, v|
+        match = values.each do |val|
+          break false unless v.include?(val)
+        end
+        matches << k if match
+        break if matches.length > 1
+      end
+
+      matches
     end
 
     def parse_input(input)

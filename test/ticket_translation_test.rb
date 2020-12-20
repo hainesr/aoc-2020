@@ -25,6 +25,20 @@ class AOC2020::TicketTranslationTest < MiniTest::Test
     38,6,12
   EOINPUT
 
+  INPUT2 = <<~EOINPUT2
+    class: 0-1 or 4-19
+    row: 0-5 or 8-19
+    seat: 0-13 or 16-19
+
+    your ticket:
+    11,12,13
+
+    nearby tickets:
+    3,9,18
+    15,1,5
+    5,14,9
+  EOINPUT2
+
   PARSED = [
     {
       class: [1, 2, 3, 5, 6, 7],
@@ -65,5 +79,37 @@ class AOC2020::TicketTranslationTest < MiniTest::Test
     fields, _, tickets = @tt.parse_input(INPUT)
     field_values = fields.values.flatten
     assert_equal(71, @tt.error_rate(tickets, field_values))
+  end
+
+  def test_valid_tickets
+    fields, _, tickets = @tt.parse_input(INPUT)
+    field_values = fields.values.flatten
+    assert_equal([[7, 3, 47]], @tt.valid_tickets(tickets, field_values))
+  end
+
+  def test_matching_fields_for_values
+    fields, _, tickets = @tt.parse_input(INPUT2)
+    field_values = tickets.transpose
+
+    assert_equal(
+      [:row], @tt.matching_fields_for_values(field_values[0], fields)
+    )
+
+    fields.delete(:row)
+    assert_equal(
+      [:class], @tt.matching_fields_for_values(field_values[1], fields)
+    )
+
+    fields.delete(:class)
+    assert_equal(
+      [:seat], @tt.matching_fields_for_values(field_values[2], fields)
+    )
+  end
+
+  def test_id_fields
+    fields, _, tickets = @tt.parse_input(INPUT2)
+    assert_equal(
+      { row: 0, class: 1, seat: 2 }, @tt.id_fields(tickets, fields)
+    )
   end
 end
