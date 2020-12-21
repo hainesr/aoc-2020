@@ -41,13 +41,14 @@ class AOC2020::MonsterMessagesTest < MiniTest::Test
     rules, = @mm.parse(INPUT)
     assert_equal('a', @mm.expand_rule(4, rules))
     assert_equal('b', @mm.expand_rule(5, rules))
-    assert_equal('(ab|ba)', @mm.expand_rule(3, rules))
-    assert_equal('(aa|bb)', @mm.expand_rule(2, rules))
+    assert_equal('(?:ab|ba)', @mm.expand_rule(3, rules))
+    assert_equal('(?:aa|bb)', @mm.expand_rule(2, rules))
     assert_equal(
-      '((aa|bb)(ab|ba)|(ab|ba)(aa|bb))', @mm.expand_rule(1, rules)
+      '(?:(?:aa|bb)(?:ab|ba)|(?:ab|ba)(?:aa|bb))', @mm.expand_rule(1, rules)
     )
     assert_equal(
-      'a((aa|bb)(ab|ba)|(ab|ba)(aa|bb))b', @mm.expand_rule(0, rules)
+      '(?:a(?:(?:aa|bb)(?:ab|ba)|(?:ab|ba)(?:aa|bb))b)',
+      @mm.expand_rule(0, rules)
     )
   end
 

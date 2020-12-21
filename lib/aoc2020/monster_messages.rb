@@ -10,6 +10,11 @@ require 'aoc2020'
 
 module AOC2020
   class MonsterMessages < Day
+    def initialize
+      super
+      @rules_cache = {}
+    end
+
     def setup
       @rules, @messages = parse(read_input_file)
     end
@@ -29,20 +34,24 @@ module AOC2020
     end
 
     def expand_rule(num, rules = @rules, acc = '')
-      rule = rules[num]
+      return @rules_cache[num] if @rules_cache.include?(num)
 
-      case rule
-      when /a|b/
-        acc + rule
-      when Array
-        if rule[0].is_a?(Array)
-          left = rule[0].map { |o| expand_rule(o, rules, acc) }.join
-          right = rule[1].map { |o| expand_rule(o, rules, acc) }.join
-          "(#{left}|#{right})"
-        else
-          rule.map { |r| expand_rule(r, rules, acc) }.join
-        end
-      end
+      rule = rules[num]
+      exp = case rule
+            when /a|b/
+              acc + rule
+            when Array
+              if rule[0].is_a?(Array)
+                left = rule[0].map { |o| expand_rule(o, rules, acc) }.join
+                right = rule[1].map { |o| expand_rule(o, rules, acc) }.join
+                "(?:#{left}|#{right})"
+              else
+                "(?:#{rule.map { |r| expand_rule(r, rules, acc) }.join})"
+              end
+            end
+
+      @rules_cache[num] = exp
+      exp
     end
 
     def parse(input)
