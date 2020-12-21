@@ -25,6 +25,13 @@ module AOC2020
       puts "Part 1: #{num}"
     end
 
+    def part2
+      seed_cache
+      zero = expand_rule(0)
+      num = @messages.map { |m| match_rule?(m, zero) }.count(true)
+      puts "Part 2: #{num}"
+    end
+
     def match_rule?(message, rule)
       match = /^#{rule}$/.match(message)
       return false if match.nil?
@@ -52,6 +59,22 @@ module AOC2020
 
       @rules_cache[num] = exp
       exp
+    end
+
+    def seed_cache(rules = @rules)
+      # Empty cache.
+      @rules_cache = {}
+
+      # Expand the rules "below" the edit point.
+      rule42 = expand_rule(42, rules)
+      rule31 = expand_rule(31, rules)
+
+      # Re-initialise cache with just the edited rules.
+      # Take advantage of recursive matching (\g<1>).
+      @rules_cache = {
+        8 => "(?:#{rule42})+",
+        11 => "(#{rule42}(?:\\g<1>)*#{rule31})"
+      }
     end
 
     def parse(input)
