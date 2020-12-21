@@ -13,7 +13,7 @@ module AOC2020
     INPUT = [5, 1, 9, 18, 13, 8, 0].freeze
 
     def setup
-      @game = Game.new(INPUT)
+      @game = Game.new(INPUT, 30_000_000)
     end
 
     def part1
@@ -25,11 +25,11 @@ module AOC2020
     end
 
     class Game
-      def initialize(starting_numbers)
+      def initialize(starting_numbers, limit = 2020)
         @starting_numbers = starting_numbers
         @turn = 0
         @last_spoken = nil
-        @cache = {}
+        @cache = Array.new(limit)
       end
 
       def play_to(upto)
@@ -42,21 +42,17 @@ module AOC2020
       def take_turn
         if @turn < @starting_numbers.length
           number = @starting_numbers[@turn]
+          @cache[number] = @turn + 1
         else
           history = @cache[@last_spoken]
-          number = (history.length == 1 ? 0 : history[0] - history[1])
+          @cache[@last_spoken] = @turn
+          number = (history.nil? ? 0 : @turn - history)
         end
 
         @turn += 1
-        say(number)
+        @last_spoken = number
 
         [@turn, number]
-      end
-
-      def say(number)
-        @cache[number] ||= []
-        @cache[number].unshift(@turn)
-        @last_spoken = number
       end
     end
   end
