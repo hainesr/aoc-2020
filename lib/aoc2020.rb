@@ -34,7 +34,9 @@ module AOC2020
     'ticket_translation',
     'conway_cubes',
     'operation_order',
-    'monster_messages'
+    'monster_messages',
+    nil,
+    'allergen_assessment'
   ].freeze
 
   def self.class_from_day(day)
