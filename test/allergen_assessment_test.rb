@@ -27,16 +27,24 @@ class AOC2020::AllergenAssessmentTest < MiniTest::Test
   end
 
   def test_find_not_allergens
-    assert_equal(
-      %w[kfcds nhms trh sbzzf],
-      @aa.find_not_allergens(@aa.read_foods(INPUT))
-    )
+    _, na = @aa.find_not_allergens(@aa.read_foods(INPUT))
+    assert_equal(%w[kfcds nhms trh sbzzf], na)
   end
 
   def test_count_not_allergens
     foods = @aa.read_foods(INPUT)
+    _, na = @aa.find_not_allergens(foods)
     assert_equal(
-      5, @aa.count_not_allergens(foods, @aa.find_not_allergens(foods))
+      5, @aa.count_not_allergens(foods, na)
+    )
+  end
+
+  def test_match_allergens
+    foods = @aa.read_foods(INPUT)
+    all, = @aa.find_not_allergens(foods)
+    assert_equal(
+      { 'dairy' => 'mxmxvkd', 'fish' => 'sqjhc', 'soy' => 'fvjkl' },
+      @aa.match_allergens(all)
     )
   end
 end
