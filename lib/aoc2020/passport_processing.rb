@@ -34,8 +34,7 @@ module AOC2020
     def fully_valid?(passport)
       return false unless valid?(passport)
 
-      v = validations
-      passport.map { |key, value| v[key].call(value) }.all?
+      passport.map { |key, value| VALIDATIONS[key].call(value) }.all?
     end
 
     def parse(input)
@@ -45,48 +44,46 @@ module AOC2020
       end
     end
 
-    def validations
-      {
-        'byr' => lambda { |byr|
-          (1920..2002).cover?(byr.to_i)
-        },
+    VALIDATIONS = {
+      'byr' => lambda { |byr|
+        (1920..2002).cover?(byr.to_i)
+      },
 
-        'iyr' => lambda { |iyr|
-          (2010..2020).cover?(iyr.to_i)
-        },
+      'iyr' => lambda { |iyr|
+        (2010..2020).cover?(iyr.to_i)
+      },
 
-        'eyr' => lambda { |eyr|
-          (2020..2030).cover?(eyr.to_i)
-        },
+      'eyr' => lambda { |eyr|
+        (2020..2030).cover?(eyr.to_i)
+      },
 
-        'hgt' => lambda { |hgt|
-          height = hgt.to_i
+      'hgt' => lambda { |hgt|
+        height = hgt.to_i
 
-          if hgt.end_with?('cm')
-            (150..193).cover?(height)
-          elsif hgt.end_with?('in')
-            (59..76).cover?(height)
-          else
-            false
-          end
-        },
+        if hgt.end_with?('cm')
+          (150..193).cover?(height)
+        elsif hgt.end_with?('in')
+          (59..76).cover?(height)
+        else
+          false
+        end
+      },
 
-        'hcl' => lambda { |hcl|
-          /^#[[:xdigit:]]{6}$/.match?(hcl)
-        },
+      'hcl' => lambda { |hcl|
+        /^#[[:xdigit:]]{6}$/.match?(hcl)
+      },
 
-        'ecl' => lambda { |ecl|
-          %w[amb blu brn gry grn hzl oth].include?(ecl)
-        },
+      'ecl' => lambda { |ecl|
+        %w[amb blu brn gry grn hzl oth].include?(ecl)
+      },
 
-        'pid' => lambda { |pid|
-          /^[[:digit:]]{9}$/.match?(pid)
-        },
+      'pid' => lambda { |pid|
+        /^[[:digit:]]{9}$/.match?(pid)
+      },
 
-        'cid' => lambda { |_|
-          true
-        }
+      'cid' => lambda { |_|
+        true
       }
-    end
+    }.freeze
   end
 end

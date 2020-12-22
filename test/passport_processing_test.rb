@@ -78,7 +78,7 @@ class AOC2020::PassportProcessingTest < MiniTest::Test
   end
 
   def test_validations
-    v = @pp.validations
+    v = AOC2020::PassportProcessing::VALIDATIONS
 
     assert(v['byr'].call('2002'))
     refute(v['byr'].call('2003'))
