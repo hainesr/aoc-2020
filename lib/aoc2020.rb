@@ -36,7 +36,8 @@ module AOC2020
     'operation_order',
     'monster_messages',
     nil,
-    'allergen_assessment'
+    'allergen_assessment',
+    'crab_combat'
   ].freeze
 
   def self.class_from_day(day)
