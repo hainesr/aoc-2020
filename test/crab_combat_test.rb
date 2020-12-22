@@ -52,5 +52,14 @@ class AOC2020::CrabCombatTest < MiniTest::Test
 
   def test_score
     assert_equal(306, @cc.score([3, 2, 10, 6, 8, 5, 9, 4, 7, 1]))
+    assert_equal(291, @cc.score([7, 5, 6, 2, 4, 1, 10, 8, 9, 3]))
+  end
+
+  def test_play_recursive
+    decks = [[9, 2, 6, 3, 1], [5, 8, 4, 7, 10]]
+    assert_equal(
+      [7, 5, 6, 2, 4, 1, 10, 8, 9, 3],
+      @cc.play_recursive(decks)
+    )
   end
 end
