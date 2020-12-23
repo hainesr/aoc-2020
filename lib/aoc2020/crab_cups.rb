@@ -16,6 +16,11 @@ module AOC2020
       puts "Part 1: #{play(LABELS).join}"
     end
 
+    def part2
+      result = play(LABELS, 10_000_000, 1_000_000)
+      puts "Part 2: #{result[0] * result[1]}"
+    end
+
     # rubocop:disable Style/WhileUntilModifier
     def play(cups, turns = 100, num_cups = nil)
       num_cups = num_cups.nil? ? cups.length : num_cups
