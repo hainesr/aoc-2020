@@ -50,4 +50,29 @@ class AOC2020::LobbyLayoutTest < MiniTest::Test
       assert_equal(0, x + y + z)
     end
   end
+
+  def test_init_tiles
+    coords = @ll.read_input(INPUT)
+    tiles = @ll.init_tiles(coords)
+    assert_equal(15, tiles.size)
+    assert_equal(10, tiles.values.sum)
+  end
+
+  def test_run_floor
+    coords = @ll.read_input(INPUT)
+    tiles = @ll.init_tiles(coords)
+
+    tiles = @ll.run_floor(tiles, 1)
+    assert_equal(15, tiles.values.sum)
+    assert_equal(15, tiles.length)
+
+    tiles = @ll.run_floor(tiles, 1)
+    assert_equal(12, tiles.values.sum)
+    assert_equal(12, tiles.length)
+
+    # The current implementation of this takes to long.
+    # tiles = @ll.run_floor(tiles, 98)
+    # assert_equal(2208, tiles.values.sum)
+    # assert_equal(2208, tiles.length)
+  end
 end
