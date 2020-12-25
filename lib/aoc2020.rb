@@ -39,7 +39,8 @@ module AOC2020
     'allergen_assessment',
     'crab_combat',
     'crab_cups',
-    'lobby_layout'
+    'lobby_layout',
+    'combo_breaker'
   ].freeze
 
   def self.class_from_day(day)
