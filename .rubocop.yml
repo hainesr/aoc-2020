@@ -24,7 +24,7 @@ Metrics/PerceivedComplexity:
   Max: 10
 
 Naming/MethodParameterName:
-  AllowedNames: x, y, z
+  AllowedNames: w, x, y, z
 
 # Allow compact child definitions in the tests for brevity.
 Style/ClassAndModuleChildren:
