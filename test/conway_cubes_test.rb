@@ -21,23 +21,22 @@ class AOC2020::ConwayCubesTest < MiniTest::Test
   end
 
   def test_parse
-    assert_equal([[0, 1, 0], [0, 0, 1], [1, 1, 1]], @cc.parse(INPUT))
+    assert_equal(
+      {
+        [1, 0, 0] => 1,
+        [2, 1, 0] => 1,
+        [0, 2, 0] => 1,
+        [1, 2, 0] => 1,
+        [2, 2, 0] => 1
+      },
+      @cc.parse(INPUT)
+    )
   end
 
-  def test_count
-    grid = @cc.parse(INPUT)
-    cube = @cc.init_cube(grid, 7)
-    assert_equal(5, cube.count)
-    cube.step
-    assert_equal(11, cube.count)
-  end
-
-  def test_step
-    grid = @cc.parse(INPUT)
-    cube = @cc.init_cube(grid, 17)
-    6.times do
-      cube.step
-    end
-    assert_equal(112, cube.count)
+  def test_boot
+    coords = @cc.parse(INPUT)
+    coords_save = coords.dup
+    assert_equal(112, @cc.boot(coords).values.sum)
+    assert_equal(coords_save, coords)
   end
 end
