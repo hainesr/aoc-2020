@@ -35,7 +35,7 @@ module AOC2020
     'conway_cubes',
     'operation_order',
     'monster_messages',
-    nil,
+    'jurassic_jigsaw',
     'allergen_assessment',
     'crab_combat',
     'crab_cups',
