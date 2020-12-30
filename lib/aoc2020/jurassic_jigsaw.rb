@@ -24,6 +24,12 @@ module AOC2020
       right: :bottom
     }.freeze
 
+    MONSTER = <<~EOMON
+                        #
+      #    ##    ##    ###
+       #  #  #  #  #  #
+    EOMON
+
     def setup
       @image = Image.new(read_input_file)
     end
@@ -31,6 +37,40 @@ module AOC2020
     def part1
       corners = @image.corners
       puts "Part 1: #{corners.map(&:id).reduce(:*)}"
+    end
+
+    def part2
+      image = @image.image!
+      monsters = count_monsters(image)
+      roughness = image.count('#') - (MONSTER.count('#') * monsters)
+      puts "Part 2: #{roughness}"
+    end
+
+    def count_monsters(image, rotate: true)
+      coords = monster_coords
+      img = image.lines(chomp: true).map(&:chars)
+      img = img.transpose if rotate
+
+      num = 0
+      img[2..].each_with_index do |row, y|
+        row[0..-19].each_with_index do |_, x|
+          found = coords.each do |mx, my|
+            break false unless img[y + my][x + mx] == '#'
+          end
+
+          num += 1 if found
+        end
+      end
+
+      num
+    end
+
+    def monster_coords
+      MONSTER.lines.map.with_index do |row, y|
+        row.chars.map.with_index do |char, x|
+          [x, y] if char == '#'
+        end.compact
+      end.flatten(1)
     end
 
     class Tile

@@ -52,6 +52,7 @@ class AOC2020::JurassicJigsawTest < MiniTest::Test
   EOIMAGE
 
   def setup
+    @jj = AOC2020::JurassicJigsaw.new
     @tiles = File.read('test/fixtures/jurassic_jigsaw.txt').chomp
   end
 
@@ -127,5 +128,31 @@ class AOC2020::JurassicJigsawTest < MiniTest::Test
   def test_image!
     image = AOC2020::JurassicJigsaw::Image.new(@tiles)
     assert_equal(IMAGE, image.image!)
+  end
+
+  def test_monster_coords
+    assert_equal(
+      [
+        [18, 0],
+        [0, 1], [5, 1], [6, 1], [11, 1], [12, 1], [17, 1], [18, 1], [19, 1],
+        [1, 2], [4, 2], [7, 2], [10, 2], [13, 2], [16, 2]
+      ],
+      @jj.monster_coords
+    )
+  end
+
+  def test_count_monsters
+    assert_equal(0, @jj.count_monsters("#.#\n.#."))
+
+    assert_equal(
+      1,
+      @jj.count_monsters(
+        "####################\n####################\n####################",
+        rotate: false
+      )
+    )
+
+    image = AOC2020::JurassicJigsaw::Image.new(@tiles).image!
+    assert_equal(2, @jj.count_monsters(image))
   end
 end
